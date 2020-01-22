@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Task01b</string>
+    <string name="app_name">Sort Service</string>
+    <string name="sort_button">Sort Array</string>
+    <string name="sort_success_result">Array Was Sorted</string>
 </resources>
