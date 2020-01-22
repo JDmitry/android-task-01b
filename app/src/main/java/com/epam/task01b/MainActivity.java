@@ -43,6 +43,6 @@ public class MainActivity extends AppCompatActivity implements SortService.Respo
     @Override
     protected void onPause() {
         super.onPause();
-        receiver = null;
+        receiver.setReceiver(null);
     }
 }
