@@ -6,15 +6,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
+import android.util.Log;
+
 import java.util.Arrays;
 
 public class SortService extends IntentService {
     private static final String ACTION_SORT = "action.SORT";
     private static final String EXTRA_INPUT = "extra.INPUT";
     private static final String EXTRA_RECEIVER = "extra.RECEIVER";
+    private static final String NAME = "SortService";
 
     public SortService() {
-        super("SortService");
+        super(NAME);
     }
 
     public static void startActionSort(Context context, int[] input, ResultReceiver receiver) {
@@ -47,25 +50,25 @@ public class SortService extends IntentService {
     }
 
     public interface Responder {
-        void didSort(int[] array);
+        void onSorted(int[] array);
     }
 
     public static class Receiver extends ResultReceiver {
-        private Responder mResponder;
+        private Responder responder;
 
         Receiver(Handler handler) {
             super(handler);
         }
 
-        void setResponder(Responder responder) {
-            this.mResponder = responder;
+        void setReceiver(Responder responder) {
+            this.responder = responder;
         }
 
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
-            if (resultCode != Constants.CODE_SUCCESS || mResponder == null) { return; }
+            if (resultCode != Constants.CODE_SUCCESS || responder == null) return;
             int[] array = resultData.getIntArray(Constants.KEY_ARRAY);
-            mResponder.didSort(array);
+            responder.onSorted(array);
         }
 
         static class Constants {
