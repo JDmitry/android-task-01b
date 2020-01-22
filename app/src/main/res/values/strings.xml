@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Sort Service</string>
     <string name="sort_button">Sort Array</string>
-    <string name="sorting">Sorting…</string>
-    <string name="sort_success_result">Array Did Sort</string>
+    <string name="sort_success_result">Array Has Sorted</string>
 </resources>
