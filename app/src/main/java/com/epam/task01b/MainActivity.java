@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.TextView;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         sortArray(array);
     }
 
-    private void sortArray(int[] input) {
+    private void sortArray(final int[] input) {
         if (!bound) return;
         String message = sortService.sortArray(input);
         messageTextView.setText(message);

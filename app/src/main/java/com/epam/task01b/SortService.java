@@ -20,8 +20,19 @@ public class SortService extends Service {
         return binder;
     }
 
-    public String sortArray(int[] input) {
-        Arrays.sort(input);
+    @Override
+    public boolean onUnbind(Intent intent) {
+        return false;
+    }
+
+    public String sortArray(final int[] input) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Arrays.sort(input);
+            }
+        });
+        thread.start();
         return getResources().getString(R.string.sort_success_result);
     }
 }
