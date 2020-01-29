@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.view.View;
 import android.widget.TextView;
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = new Intent(this, SortService.class);
+        Intent intent = new Intent(MainActivity.this, SortService.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
     }
 
@@ -41,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onSortClick(View v) {
-        int[] array = new Random().ints(100).toArray();
+    public void onSortClick(View view) {
+        int[] array = new Random().ints(1000).toArray();
         sortArray(array);
     }
 

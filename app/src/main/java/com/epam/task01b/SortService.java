@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class SortService extends Service {
     private final IBinder binder = new SortBinder();
 
-    public class SortBinder extends Binder {
+    class SortBinder extends Binder {
         SortService getService() {
             return SortService.this;
         }
@@ -32,7 +32,15 @@ public class SortService extends Service {
                 Arrays.sort(input);
             }
         });
+
         thread.start();
+
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         return getResources().getString(R.string.sort_success_result);
     }
 }
