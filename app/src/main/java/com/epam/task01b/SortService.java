@@ -5,14 +5,9 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.view.Gravity;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 public class SortService extends Service {
     private Handler handler = new Handler();
