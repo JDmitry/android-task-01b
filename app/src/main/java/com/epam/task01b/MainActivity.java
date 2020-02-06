@@ -8,19 +8,16 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
-import android.widget.TextView;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private SortService sortService;
     private boolean bound = false;
-    private TextView messageTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        messageTextView = findViewById(R.id.service_message);
     }
 
     @Override
@@ -46,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void sortArray(final int[] input) {
         if (!bound) return;
-        String message = sortService.sortArray(input);
-        messageTextView.setText(message);
+        sortService.sortArray(input);
     }
 
     private ServiceConnection connection = new ServiceConnection() {

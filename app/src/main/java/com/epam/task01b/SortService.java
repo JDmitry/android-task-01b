@@ -3,10 +3,19 @@ package com.epam.task01b;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.view.Gravity;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class SortService extends Service {
+    private Handler handler = new Handler();
     private final IBinder binder = new SortBinder();
 
     class SortBinder extends Binder {
@@ -25,22 +34,21 @@ public class SortService extends Service {
         return false;
     }
 
-    public String sortArray(final int[] input) {
+    public void sortArray(final int[] input) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Arrays.sort(input);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast toast = Toast.makeText(getApplicationContext(),getResources().getString(R.string.sort_success_result),Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER,0,400);
+                        toast.show();
+                    }
+                });
             }
         });
-
         thread.start();
-
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return getResources().getString(R.string.sort_success_result);
     }
 }
